@@ -10,6 +10,24 @@
     <input class="input-custom" type="text" id="description" [formControlName]="'description'">
   </label>
   <br>
+  <label for="major">
+    Major <br>
+    <!-- display all the major option in a select -->
+    <select name="major-list" id="major" [formControlName]="'major'">
+      <option *ngFor="let selectedMajorType of MAJOR_TYPE" [value]="selectedMajorType">
+        {{selectedMajorType}}
+      </option>
+    </select>
+  </label>
+  <br>
+  <label for="student">
+    student <br>
+    <!-- display all the student option in a select -->
+    <select formControlName="studentID">
+      <option *ngFor="let student of students" [value]="student.id">{{ student.nom }} {{ student.prenom }}</option>
+    </select>
+  </label>
+  <br>
   <button type="submit" class="btn-custom" (click)="addTicket()">Create</button>
 </form>
 

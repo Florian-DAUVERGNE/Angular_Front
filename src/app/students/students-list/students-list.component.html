@@ -1,0 +1,20 @@
+<a href="./students/add" class="button-link"> ajouter un étudiant</a>
+
+<table class="styled-table">
+  <thead>
+      <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Prenom</th>
+          <th>Action</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let student of students">
+          <td (click)="navigateToStudentDetails(student.id)" >{{student.id}}</td>
+          <td (click)="navigateToStudentDetails(student.id)" >{{ student.nom }}</td>
+          <td (click)="navigateToStudentDetails(student.id)" >{{ student.prenom }}</td>
+          <td><button [value]="student.id" (click)="deleteStudent(student.id)">supprimer</button></td>
+      </tr>
+  </tbody>
+</table>

@@ -13,10 +13,15 @@ export class TicketComponent implements OnInit {
    * More information: https://angular.io/guide/component-interaction
    */
   @Input()
-  ticket: Ticket;
+  ticket?: Ticket;
 
   @Output()
   ticketHasBeenSelected: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  //New output
+  @Output()
+  ticketDeleted: EventEmitter<Ticket> = new EventEmitter<Ticket>();
+
 
   constructor() {
   }
@@ -27,4 +32,11 @@ export class TicketComponent implements OnInit {
   selectTicket() {
     this.ticketHasBeenSelected.emit(true);
   }
+
+  //emit the ticket that need to be deleted
+  deleteTicket() {
+    this.ticketDeleted.emit(this.ticket);
+  }
+
+
 }

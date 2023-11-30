@@ -1,0 +1,10 @@
+<h2>{{ students.nom }} {{ students.prenom }}</h2>
+
+
+<form [formGroup]="studentDetailForm" (ngSubmit)="onSubmit()">
+  <textarea formControlName="notes" [(ngModel)]="students.notes"></textarea>
+  <br>
+  <button type="submit">Update Note</button>
+  <br>
+  <a href="./students">retour</a>
+</form>

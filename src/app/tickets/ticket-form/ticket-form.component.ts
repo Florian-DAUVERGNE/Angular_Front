@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TicketService } from '../../../services/ticket/ticket.service';
-import { Ticket } from '../../../models/ticket';
+import { Ticket,MAJOR } from '../../../models/ticket';
+import { Student } from 'src/models/student';
+import { StudentService } from 'src/services/student/student.service';
 
 @Component({
   selector: 'app-ticket-form',
@@ -18,15 +20,22 @@ export class TicketFormComponent implements OnInit {
    */
   public ticketForm: FormGroup;
 
-  constructor(public formBuilder: FormBuilder, public ticketService: TicketService) {
+
+  public MAJOR_TYPE: MAJOR[] = [MAJOR.SI,MAJOR.IF]
+  public students: any
+
+
+  constructor(public formBuilder: FormBuilder, public ticketService: TicketService, public studentService: StudentService) {
+    this.studentService.students$.subscribe(students => {
+      this.students = students;
+    });
     // Form creation
     this.ticketForm = this.formBuilder.group({
       title: [''],
-      description: ['']
+      description: [''],
+      major: [''],
+      studentID: ['']
     });
-    // You can also add validators to your inputs such as required, maxlength or even create your own validator!
-    // More information: https://angular.io/guide/reactive-forms#simple-form-validation
-    // Advanced validation: https://angular.io/guide/form-validation#reactive-form-validation
   }
 
   ngOnInit() {
@@ -34,8 +43,9 @@ export class TicketFormComponent implements OnInit {
 
   addTicket() {
     const ticketToCreate: Ticket = this.ticketForm.getRawValue() as Ticket;
-    ticketToCreate.date = new Date();
-    ticketToCreate.author = 'Me';
+    ticketToCreate.student = this.students.find((student: Student) => student.id === Number(this.ticketForm.getRawValue().studentID))
+    ticketToCreate.archived = false;
+    ticketToCreate.date = new Date()
     this.ticketService.addTicket(ticketToCreate);
   }
 

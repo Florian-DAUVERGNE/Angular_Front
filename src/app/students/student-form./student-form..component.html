@@ -1,0 +1,18 @@
+<h3>Créer un nouvel étudiant</h3>
+<form class="ticket-form" [formGroup]="studentForm">
+  <label for="prenom">
+    Prénom <br>
+    <input class="input-custom" type="text" id="name" [formControlName]="'prenom'">
+  </label>
+  <br>
+  <label for="nom">
+    Nom <br>
+    <input class="input-custom" type="text" id="name" [formControlName]="'nom'">
+  </label>
+  <button type="submit" class="btn-custom" (click)="addStudent()">Créer</button>
+  <br>
+  <a href="./students">retour</a>
+</form>
+
+<!-- Uncomment below to see your form structure and how it changes-->
+<!--<br><br>{{ticketForm.getRawValue() | json}}-->

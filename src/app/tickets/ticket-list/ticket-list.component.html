@@ -1,7 +1,16 @@
 <div class="ticket-list">
+  <!-- button that change the satus of the displayed tickets (archived/non-archived)-->
+  <button (click)="changeDisplayTicketArchived()">archived ticket</button>
+
+  <!-- let the user know the current status of  displayTicketArchived-->
+  <div *ngIf="displayTicketArchived == true">Now showing archived Tickets</div>
+
+  <!-- for every ticket in the mock list -->
   <div class="ticket" *ngFor="let ticket of ticketList">
-      <!--Inputs & Output allow communication between parent & child components.-->
-      <!--More information: https://angular.io/guide/component-interaction-->
-      <app-ticket [ticket]="ticket" (ticketHasBeenSelected)="ticketHasBeenSelected($event)"></app-ticket>
+
+      <!-- create ticket that match the status of displayTicketArchived -->
+      <app-ticket *ngIf="ticket.archived == displayTicketArchived" [ticket]="ticket" (ticketDeleted)="deleteTicket($event)" (ticketHasBeenSelected)="ticketHasBeenSelected($event)"></app-ticket>
+
   </div>
 </div>
+
